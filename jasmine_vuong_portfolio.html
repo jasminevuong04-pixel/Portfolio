@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jasmine Vuong — Aerospace Engineering Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #0e0b1a;
+  --bg2:     #130f22;
+  --bg3:     #17122b;
+  --surf:    #1d1733;
+  --surf2:   #241e3d;
+  --bord:    rgba(180,140,255,0.1);
+  --bord2:   rgba(180,140,255,0.22);
+  --acc:     #c084fc;
+  --acc2:    #a855f7;
+  --acc3:    #e879f9;
+  --gold:    #f0c060;
+  --text:    #ede8ff;
+  --muted:   #6b6285;
+  --muted2:  #9d95c0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+/* stars */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1px 1px at 12% 18%,rgba(192,132,252,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 35% 65%,rgba(192,132,252,.3) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 62% 12%,rgba(232,121,249,.5) 0%,transparent 100%),
+    radial-gradient(1px 1px at 82% 42%,rgba(192,132,252,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 48% 82%,rgba(192,132,252,.4) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 91% 72%,rgba(232,121,249,.3) 0%,transparent 100%),
+    radial-gradient(1px 1px at 22% 92%,rgba(192,132,252,.2) 0%,transparent 100%),
+    radial-gradient(1px 1px at 73% 52%,rgba(192,132,252,.25) 0%,transparent 100%)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;background:rgba(14,11,26,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--bord)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.3rem;letter-spacing:.08em;color:var(--acc);text-decoration:none}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--acc)}
+.nav-cta a{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.08em;color:var(--bg);background:var(--acc);padding:.45rem 1.2rem;border-radius:2px;text-decoration:none;font-weight:500;transition:background .2s}
+.nav-cta a:hover{background:var(--acc3)}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:8rem 3rem 5rem;overflow:hidden;z-index:1}
+.orb{position:absolute;border-radius:50%;pointer-events:none}
+.orb1{width:700px;height:700px;background:radial-gradient(circle,rgba(168,85,247,.12) 0%,transparent 70%);top:-200px;right:-150px}
+.orb2{width:500px;height:500px;background:radial-gradient(circle,rgba(232,121,249,.06) 0%,transparent 70%);bottom:-100px;left:100px}
+.hero-inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto}
+.eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--acc);margin-bottom:1.8rem;display:flex;align-items:center;gap:.8rem;animation:fadeUp .6s ease .1s both}
+.eyebrow::before{content:'';width:28px;height:1px;background:var(--acc);display:block}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4.5rem,11vw,9rem);line-height:.92;color:var(--text);margin-bottom:.1rem;animation:fadeUp .6s ease .2s both}
+h1 em{font-style:italic;color:var(--acc)}
+.surname{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(4.5rem,11vw,9rem);line-height:.92;letter-spacing:.04em;color:var(--text);margin-bottom:2.5rem;animation:fadeUp .6s ease .25s both}
+.hero-desc{max-width:520px;font-size:1rem;color:var(--muted2);margin-bottom:3rem;line-height:1.8;animation:fadeUp .6s ease .35s both}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:3rem;animation:fadeUp .6s ease .4s both}
+.hero-pill{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.32rem .8rem;border:1px solid var(--bord2);border-radius:100px;color:var(--muted2)}
+.hero-cta{display:flex;gap:1rem;animation:fadeUp .6s ease .45s both}
+.bg-text{position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(10rem,22vw,22rem);color:rgba(168,85,247,.04);pointer-events:none;user-select:none;line-height:1}
+
+/* BUTTONS */
+.btn-p{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--acc);padding:.9rem 2rem;border-radius:2px;text-decoration:none;font-weight:500;transition:background .2s}
+.btn-p:hover{background:var(--acc3)}
+.btn-g{font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);border:1px solid var(--bord2);padding:.9rem 2rem;border-radius:2px;text-decoration:none;transition:all .2s}
+.btn-g:hover{color:var(--acc);border-color:var(--acc)}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:7rem 3rem}
+.inner{max-width:1200px;margin:0 auto}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4rem;padding-bottom:1.5rem;border-bottom:1px solid var(--bord)}
+.sec-tag{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.sec-tag::before{content:'//';opacity:.4}
+h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;letter-spacing:.01em}
+.sec-count{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--muted);letter-spacing:.12em}
+
+/* PROJECTS */
+#projects{background:var(--bg)}
+.proj-grid{display:grid;gap:2px}
+.proj-card{background:var(--surf);border:1px solid var(--bord);overflow:hidden;transition:border-color .3s}
+.proj-card:hover{border-color:rgba(192,132,252,.35)}
+.proj-inner{display:grid;grid-template-columns:1fr 1.3fr;min-height:340px}
+.proj-card:nth-child(even) .proj-inner{grid-template-columns:1.3fr 1fr}
+.proj-card:nth-child(even) .proj-info{order:-1}
+.proj-info{padding:3rem;display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid var(--bord)}
+.proj-card:nth-child(even) .proj-info{border-right:none;border-left:1px solid var(--bord)}
+.proj-num{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.15em;color:var(--muted);margin-bottom:1.2rem}
+.proj-role{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:.4rem}
+h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.8rem;line-height:1.15;margin-bottom:1rem}
+.proj-desc{font-size:.88rem;color:var(--muted2);line-height:1.75;flex:1;margin-bottom:2rem}
+.tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.5rem}
+.tag{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .6rem;border-radius:1px;border:1px solid var(--bord);color:var(--muted2)}
+.tag.a{border-color:rgba(192,132,252,.35);color:var(--acc)}
+.tag.b{border-color:rgba(232,121,249,.3);color:var(--acc3)}
+.tag.c{border-color:rgba(240,192,96,.3);color:var(--gold)}
+.expand-btn{background:none;border:none;cursor:pointer;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.4rem;padding:0;transition:color .2s}
+.expand-btn:hover{color:var(--acc)}
+.chev{display:inline-block;transition:transform .3s}
+.expand-btn.open .chev{transform:rotate(180deg)}
+.proj-vis{position:relative;background:var(--bg2);overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:280px}
+.proj-vis svg{width:100%;height:100%;position:absolute;inset:0}
+.proj-details{display:none;padding:0 3rem 3rem;border-top:1px solid var(--bord);background:var(--bg2)}
+.proj-details.open{display:block}
+.det-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding-top:2rem}
+.det-sec h4{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--acc);margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid var(--bord)}
+.det-sec ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.det-sec ul li{font-size:.85rem;color:var(--muted2);padding-left:1rem;position:relative;line-height:1.65}
+.det-sec ul li::before{content:'→';position:absolute;left:0;color:var(--acc);font-size:.7rem}
+
+/* PHOTOS */
+#photos{background:var(--bg2)}
+.photos-intro{font-size:.92rem;color:var(--muted2);max-width:560px;margin-bottom:2.5rem;line-height:1.8}
+.upload-zone{border:2px dashed rgba(192,132,252,.3);border-radius:4px;padding:3rem 2rem;text-align:center;cursor:pointer;transition:all .25s;background:rgba(192,132,252,.03);margin-bottom:2.5rem}
+.upload-zone:hover,.upload-zone.drag-over{border-color:var(--acc);background:rgba(192,132,252,.07)}
+.upload-zone input[type=file]{display:none}
+.up-icon{width:48px;height:48px;margin:0 auto 1rem;opacity:.5}
+.up-title{font-family:'Outfit',sans-serif;font-weight:500;font-size:1rem;color:var(--text);margin-bottom:.4rem}
+.up-sub{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;color:var(--muted);margin-bottom:1.2rem}
+.up-btn{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--acc);padding:.6rem 1.4rem;border-radius:2px;border:none;cursor:pointer;font-weight:500;transition:background .2s}
+.up-btn:hover{background:var(--acc3)}
+.cat-row{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.cat-btn{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .85rem;border-radius:100px;border:1px solid var(--bord2);background:none;color:var(--muted2);cursor:pointer;transition:all .2s}
+.cat-btn:hover,.cat-btn.active{border-color:var(--acc);color:var(--acc);background:rgba(192,132,252,.08)}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem}
+.photo-item{position:relative;background:var(--surf);border:1px solid var(--bord);border-radius:2px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;transition:border-color .2s}
+.photo-item:hover{border-color:var(--bord2)}
+.photo-item:hover .photo-ov{opacity:1}
+.photo-item img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-ov{position:absolute;inset:0;background:rgba(14,11,26,.78);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;opacity:0;transition:opacity .2s}
+.photo-cap{background:none;border:none;border-bottom:1px solid var(--acc);color:var(--text);font-family:'Outfit',sans-serif;font-size:.8rem;text-align:center;padding:.3rem .5rem;outline:none;width:80%}
+.photo-cap::placeholder{color:var(--muted)}
+.photo-sel{background:rgba(19,15,34,.9);border:1px solid rgba(192,132,252,.3);color:var(--muted2);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;padding:.3rem .5rem;border-radius:2px;cursor:pointer}
+.photo-del{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,121,249,.7);background:none;border:1px solid rgba(232,121,249,.3);padding:.3rem .7rem;border-radius:2px;cursor:pointer;transition:all .2s}
+.photo-del:hover{color:var(--acc3);border-color:var(--acc3)}
+.photo-lbl{position:absolute;bottom:0;left:0;right:0;padding:.5rem .75rem;background:rgba(14,11,26,.85);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.05em;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.empty{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:var(--muted)}
+.empty p{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-top:1rem}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(14,11,26,.96);z-index:200;align-items:center;justify-content:center}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border:1px solid var(--bord2)}
+.lb-close{position:absolute;top:2rem;right:2rem;background:none;border:1px solid var(--bord2);color:var(--muted2);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;padding:.5rem 1rem;cursor:pointer;transition:all .2s}
+.lb-close:hover{color:var(--acc);border-color:var(--acc)}
+.lb-cap{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--muted2);white-space:nowrap}
+
+/* SKILLS */
+#skills{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bord);border:1px solid var(--bord)}
+.skill-cell{background:var(--bg);padding:2.5rem 2rem;transition:background .2s}
+.skill-cell:hover{background:var(--surf)}
+.skill-glyph{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--acc);margin-bottom:1rem;opacity:.8}
+.skill-name{font-family:'Outfit',sans-serif;font-weight:500;font-size:.95rem;margin-bottom:.5rem}
+.skill-detail{font-size:.82rem;color:var(--muted);line-height:1.65}
+.skill-bar{margin-top:1.2rem;height:1px;background:var(--bord)}
+.skill-bar-fill{height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc3));transition:width 1.2s ease}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.about-text p{font-size:.95rem;color:var(--muted2);margin-bottom:1.3rem;line-height:1.85}
+.about-btns{display:flex;gap:1rem;margin-top:2rem}
+.hi-list{display:flex;flex-direction:column;gap:1px}
+.hi-item{display:flex;align-items:flex-start;gap:1.5rem;padding:1.5rem;background:var(--surf);border-left:2px solid transparent;transition:border-color .2s,background .2s}
+.hi-item:hover{border-left-color:var(--acc);background:var(--surf2)}
+.hi-num{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:1.4rem;color:var(--acc);opacity:.6;flex-shrink:0;line-height:1.2}
+.hi-content h4{font-family:'Outfit',sans-serif;font-weight:500;font-size:.9rem;margin-bottom:.3rem}
+.hi-content p{font-size:.8rem;color:var(--muted);line-height:1.65}
+
+/* CONTACT */
+#contact{background:var(--bg);text-align:center}
+.contact-inner{max-width:620px;margin:0 auto}
+.contact-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(3rem,6vw,5rem);line-height:1;letter-spacing:.01em;margin:1rem 0 .5rem}
+.contact-title em{font-style:italic;color:var(--acc)}
+.contact-sub{color:var(--muted2);font-size:.92rem;margin-bottom:3rem;line-height:1.8}
+.contact-links{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.c-link{display:flex;align-items:center;gap:.6rem;font-family:'DM Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-decoration:none;padding:.9rem 1.6rem;border:1px solid var(--bord2);color:var(--muted2);border-radius:2px;transition:all .2s}
+.c-link:hover{color:var(--acc);border-color:rgba(192,132,252,.5)}
+.c-link.primary{background:var(--acc);color:var(--bg);border-color:var(--acc);font-weight:500}
+.c-link.primary:hover{background:var(--acc3);border-color:var(--acc3);color:var(--bg)}
+
+/* FOOTER */
+footer{padding:2rem 3rem;border-top:1px solid var(--bord);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+footer p{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--muted)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">J. Vuong</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#photos">Gallery</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-cta"><a href="mailto:jasminevuong04@gmail.com">Contact</a></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="bg-text">AERO</div>
+  <div class="hero-inner">
+    <div class="eyebrow">Aerospace Engineering · UCLA</div>
+    <h1><em>Jasmine</em></h1>
+    <div class="surname">Vuong</div>
+    <p class="hero-desc">Aerospace engineering student specializing in CAD, structural systems, CFD simulation, and manufacturing. I design vehicles that fly — from multi-stage rockets to medical UAVs.</p>
+    <div class="hero-pills">
+      <span class="hero-pill">SolidWorks</span>
+      <span class="hero-pill">COMSOL CFD</span>
+      <span class="hero-pill">CNC &amp; G-Code</span>
+      <span class="hero-pill">Composites</span>
+      <span class="hero-pill">Structural Analysis</span>
+      <span class="hero-pill">Engineers Without Borders</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-p">View Projects</a>
+      <a href="mailto:jasminevuong04@gmail.com" class="btn-g">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="inner">
+    <div class="sec-hdr">
+      <div><div class="sec-tag">Work</div><h2>Selected Projects</h2></div>
+      <div class="sec-count">04 projects</div>
+    </div>
+    <div class="proj-grid">
+
+      <!-- 1 -->
+      <div class="proj-card">
+        <div class="proj-inner">
+          <div class="proj-info">
+            <div>
+              <div class="proj-num">01 / 04</div>
+              <div class="proj-role">CAD, Manufacturing &amp; Systems Lead</div>
+              <h3>Multi-Stage Rocket Design</h3>
+              <p class="proj-desc">Full vehicle CAD design and system integration for a multi-stage rocket capstone. Coordinated structural, propulsion, avionics, and recovery subsystems. Designed motor mounts, fin interfaces, payload bays, and stage interfaces for axial and bending loads.</p>
+              <div class="tags">
+                <span class="tag a">SolidWorks</span><span class="tag a">System Integration</span>
+                <span class="tag">Composites</span><span class="tag">Fiberglass Layup</span><span class="tag">Structural Analysis</span>
+              </div>
+            </div>
+            <button class="expand-btn" onclick="toggleDetail('d1',this)">View details <span class="chev">▾</span></button>
+          </div>
+          <div class="proj-vis">
+            <svg viewBox="0 0 500 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="380" fill="#130f22"/>
+              <line x1="0" y1="60" x2="500" y2="60" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="0" y1="120" x2="500" y2="120" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="0" y1="180" x2="500" y2="180" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="0" y1="240" x2="500" y2="240" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="0" y1="300" x2="500" y2="300" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="80" y1="0" x2="80" y2="380" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="160" y1="0" x2="160" y2="380" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="240" y1="0" x2="240" y2="380" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="320" y1="0" x2="320" y2="380" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <line x1="400" y1="0" x2="400" y2="380" stroke="rgba(168,85,247,.06)" stroke-width="1"/>
+              <rect x="210" y="160" width="55" height="160" fill="rgba(168,85,247,.06)" stroke="rgba(192,132,252,.4)" stroke-width="1.5"/>
+              <path d="M210 160 L237 50 L265 160Z" fill="rgba(168,85,247,.1)" stroke="rgba(192,132,252,.5)" stroke-width="1.5"/>
+              <line x1="205" y1="225" x2="270" y2="225" stroke="rgba(232,121,249,.4)" stroke-width="1" stroke-dasharray="5 3"/>
+              <path d="M210 280 L165 340 L210 325Z" fill="rgba(168,85,247,.06)" stroke="rgba(192,132,252,.3)" stroke-width="1.5"/>
+              <path d="M265 280 L310 340 L265 325Z" fill="rgba(168,85,247,.06)" stroke="rgba(192,132,252,.3)" stroke-width="1.5"/>
+              <line x1="145" y1="50" x2="145" y2="320" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <line x1="140" y1="50" x2="150" y2="50" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <line x1="140" y1="320" x2="150" y2="320" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <text x="128" y="195" fill="rgba(192,132,252,.5)" font-family="monospace" font-size="9" text-anchor="middle" transform="rotate(-90 128 190)">24.61 in</text>
+              <ellipse cx="237" cy="325" rx="18" ry="9" fill="rgba(232,121,249,.12)"/>
+              <ellipse cx="237" cy="333" rx="9" ry="5" fill="rgba(232,121,249,.22)"/>
+              <text x="345" y="105" fill="rgba(192,132,252,.4)" font-family="monospace" font-size="8">ROCKET VEHICLE</text>
+              <text x="345" y="119" fill="rgba(192,132,252,.25)" font-family="monospace" font-size="7">SCALE 1:8 · SHEET 1/1</text>
+            </svg>
+          </div>
+        </div>
+        <div class="proj-details" id="d1">
+          <div class="det-grid">
+            <div class="det-sec"><h4>Design &amp; CAD Development</h4><ul>
+              <li>Full CAD assembly with all major structural components and internal interfaces</li>
+              <li>Component alignment and fit between all subsystems</li>
+              <li>Internal packaging: payload, avionics, recovery system</li>
+              <li>Structural continuity and load paths throughout the vehicle</li>
+              <li>Assembly feasibility and ease of manufacturing</li>
+            </ul></div>
+            <div class="det-sec"><h4>Manufacturing Constraints</h4><ul>
+              <li>Plywood fins over carbon fiber — cost savings with sufficient structural integrity</li>
+              <li>Optimized fiberglass layer count for nose cone layup</li>
+              <li>Balanced weight, strength, and budget tradeoffs</li>
+              <li>Designed for both axial and bending load cases</li>
+              <li>Realistic production methods throughout</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="proj-card">
+        <div class="proj-inner">
+          <div class="proj-info">
+            <div>
+              <div class="proj-num">02 / 04</div>
+              <div class="proj-role">CAD Lead</div>
+              <h3>Medical Delivery UAV</h3>
+              <p class="proj-desc">CAD lead for a fixed-wing UAV designed for rapid medical delivery within the "golden hour." 4.5 lb payload over a ~30 nm round trip. Built airfoil geometry from coordinate data using splines — NACA 6412 main wing, NACA 0012 stabilizers.</p>
+              <div class="tags">
+                <span class="tag b">NACA Airfoils</span><span class="tag b">Aerodynamics</span>
+                <span class="tag">UAV Design</span><span class="tag">CG Optimization</span><span class="tag">Propulsion Trade</span>
+              </div>
+            </div>
+            <button class="expand-btn" onclick="toggleDetail('d2',this)">View details <span class="chev">▾</span></button>
+          </div>
+          <div class="proj-vis">
+            <svg viewBox="0 0 500 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="380" fill="#0e0b1a"/>
+              <line x1="0" y1="95" x2="500" y2="95" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="0" y1="190" x2="500" y2="190" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="0" y1="285" x2="500" y2="285" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="100" y1="0" x2="100" y2="380" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="200" y1="0" x2="200" y2="380" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="300" y1="0" x2="300" y2="380" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <line x1="400" y1="0" x2="400" y2="380" stroke="rgba(232,121,249,.05)" stroke-width="1"/>
+              <path d="M80 175 L420 162 L428 182 L420 202 L80 195Z" fill="rgba(232,121,249,.05)" stroke="rgba(232,121,249,.4)" stroke-width="1.5"/>
+              <path d="M80 175 L38 187 L80 195Z" fill="rgba(232,121,249,.1)" stroke="rgba(232,121,249,.45)" stroke-width="1.5"/>
+              <path d="M210 165 L170 85 L255 162Z" fill="rgba(168,85,247,.07)" stroke="rgba(192,132,252,.3)" stroke-width="1.5"/>
+              <path d="M210 202 L170 282 L255 205Z" fill="rgba(168,85,247,.07)" stroke="rgba(192,132,252,.3)" stroke-width="1.5"/>
+              <path d="M400 165 L378 105 L418 165Z" fill="rgba(232,121,249,.07)" stroke="rgba(232,121,249,.25)" stroke-width="1"/>
+              <path d="M400 202 L378 262 L418 202Z" fill="rgba(232,121,249,.07)" stroke="rgba(232,121,249,.25)" stroke-width="1"/>
+              <circle cx="238" cy="184" r="5" fill="none" stroke="rgba(240,192,96,.7)" stroke-width="1.5"/>
+              <line x1="233" y1="184" x2="243" y2="184" stroke="rgba(240,192,96,.7)" stroke-width="1"/>
+              <line x1="238" y1="179" x2="238" y2="189" stroke="rgba(240,192,96,.7)" stroke-width="1"/>
+              <text x="247" y="179" fill="rgba(240,192,96,.6)" font-family="monospace" font-size="8">CG</text>
+              <text x="158" y="73" fill="rgba(192,132,252,.5)" font-family="monospace" font-size="8">NACA 6412</text>
+              <text x="365" y="96" fill="rgba(232,121,249,.4)" font-family="monospace" font-size="7">NACA 0012</text>
+              <text x="48" y="158" fill="rgba(232,121,249,.35)" font-family="monospace" font-size="7">4.5 lb payload</text>
+              <text x="300" y="140" fill="rgba(192,132,252,.3)" font-family="monospace" font-size="7">Vmax ~80 mph</text>
+              <text x="300" y="152" fill="rgba(192,132,252,.3)" font-family="monospace" font-size="7">Vstall ~40 mph</text>
+            </svg>
+          </div>
+        </div>
+        <div class="proj-details" id="d2">
+          <div class="det-grid">
+            <div class="det-sec"><h4>Aerodynamic Design</h4><ul>
+              <li>NACA 6412 main wing built from coordinate data via CAD splines</li>
+              <li>NACA 0012 vertical and horizontal stabilizers for stability</li>
+              <li>Iterated wing planform, aspect ratio, and cruise speed targets</li>
+              <li>Top speed ~80 mph; stall speed ~40 mph</li>
+              <li>Stable low-speed behavior for payload drop at ~100 ft altitude</li>
+            </ul></div>
+            <div class="det-sec"><h4>System &amp; Mass Trade Studies</h4><ul>
+              <li>Electric vs gas propulsion tradeoffs: weight and energy density</li>
+              <li>Payload and fuel placed close to center of gravity</li>
+              <li>Minimized CG shift during flight as fuel depletes</li>
+              <li>30 nautical mile round-trip mission requirement</li>
+              <li>4.5 lb payload capacity for medical delivery</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="proj-card">
+        <div class="proj-inner">
+          <div class="proj-info">
+            <div>
+              <div class="proj-num">03 / 04</div>
+              <div class="proj-role">Aerodynamic Analyst</div>
+              <h3>CFD Airfoil Analysis</h3>
+              <p class="proj-desc">CFD study in COMSOL Multiphysics (MAE 150B). Simulated flow over a 2D cylinder, NACA 0010, NACA 4410, and a 3D finite wing. Analyzed lift, drag, wake structures, and wingtip vortices. Studied the impact of mesh refinement on simulation accuracy.</p>
+              <div class="tags">
+                <span class="tag c">COMSOL</span><span class="tag c">CFD</span>
+                <span class="tag">Lift &amp; Drag</span><span class="tag">Mesh Analysis</span><span class="tag">3D Wing</span>
+              </div>
+            </div>
+            <button class="expand-btn" onclick="toggleDetail('d3',this)">View details <span class="chev">▾</span></button>
+          </div>
+          <div class="proj-vis">
+            <svg viewBox="0 0 500 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="380" fill="#100d1e"/>
+              <defs>
+                <linearGradient id="pg" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="rgba(100,80,200,.2)"/>
+                  <stop offset="40%" stop-color="rgba(192,132,252,.1)"/>
+                  <stop offset="65%" stop-color="rgba(232,121,249,.1)"/>
+                  <stop offset="100%" stop-color="rgba(240,80,80,.15)"/>
+                </linearGradient>
+                <linearGradient id="cb" x1="0" y1="1" x2="0" y2="0">
+                  <stop offset="0%" stop-color="#3b1d8a"/>
+                  <stop offset="33%" stop-color="#a855f7"/>
+                  <stop offset="66%" stop-color="#e879f9"/>
+                  <stop offset="100%" stop-color="#f06060"/>
+                </linearGradient>
+              </defs>
+              <rect x="40" y="100" width="410" height="185" fill="url(#pg)" rx="2"/>
+              <path d="M75 198 Q155 135 295 185 Q375 210 440 198 Q375 228 295 215 Q155 258 75 198Z" fill="rgba(13,10,28,.92)" stroke="rgba(192,132,252,.6)" stroke-width="2"/>
+              <circle cx="75" cy="198" r="5" fill="rgba(232,121,249,.35)"/>
+              <path d="M40 128 Q115 118 195 145 Q275 172 375 160 Q415 155 455 152" stroke="rgba(192,132,252,.2)" stroke-width="1" fill="none"/>
+              <path d="M40 152 Q108 142 180 158 Q255 174 358 166 Q408 162 455 160" stroke="rgba(192,132,252,.15)" stroke-width="1" fill="none"/>
+              <path d="M40 172 Q98 165 170 172 Q235 180 330 174 Q395 170 455 168" stroke="rgba(192,132,252,.1)" stroke-width="1" fill="none"/>
+              <path d="M40 235 Q128 240 195 226 Q275 213 373 220 Q414 223 455 227" stroke="rgba(168,85,247,.15)" stroke-width="1" fill="none"/>
+              <path d="M40 258 Q118 262 195 248 Q275 232 368 238 Q412 241 455 245" stroke="rgba(168,85,247,.1)" stroke-width="1" fill="none"/>
+              <rect x="462" y="80" width="10" height="225" fill="url(#cb)" rx="1"/>
+              <text x="475" y="84" fill="rgba(232,121,249,.55)" font-family="monospace" font-size="8">Hi</text>
+              <text x="475" y="300" fill="rgba(168,85,247,.45)" font-family="monospace" font-size="8">Lo</text>
+              <text x="50" y="78" fill="rgba(232,121,249,.55)" font-family="monospace" font-size="9">NACA 4410 — α=6°</text>
+              <text x="50" y="92" fill="rgba(192,132,252,.3)" font-family="monospace" font-size="8">Contour: Pressure (Pa)</text>
+              <text x="178" y="155" fill="rgba(240,80,80,.4)" font-family="monospace" font-size="7">LOW P</text>
+              <text x="198" y="242" fill="rgba(100,150,240,.4)" font-family="monospace" font-size="7">HIGH P</text>
+              <line x1="258" y1="290" x2="258" y2="340" stroke="rgba(192,132,252,.25)" stroke-width="1" stroke-dasharray="3 2"/>
+              <text x="266" y="325" fill="rgba(192,132,252,.4)" font-family="monospace" font-size="8">CL ↑</text>
+            </svg>
+          </div>
+        </div>
+        <div class="proj-details" id="d3">
+          <div class="det-grid">
+            <div class="det-sec"><h4>Simulation Cases</h4><ul>
+              <li>2D cylinder: wake formation and drag behavior vs mesh density</li>
+              <li>NACA 0010 symmetric: α = 0° to 10°, lift vs thin airfoil theory</li>
+              <li>NACA 4410 cambered: higher CL at all angles including α = 0°</li>
+              <li>3D finite wing (NACA 4410): wingtip vortices and induced drag</li>
+            </ul></div>
+            <div class="det-sec"><h4>Key Findings</h4><ul>
+              <li>Mesh refinement critical — significantly affected drag and lift accuracy</li>
+              <li>Viscous effects and low Re reduced lift below thin airfoil theory</li>
+              <li>Cambered airfoils: higher drag at low angles — clear lift/drag tradeoff</li>
+              <li>3D induced drag clearly visible in finite wing simulation</li>
+              <li>Computational setup as important as physical modeling</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="proj-card">
+        <div class="proj-inner">
+          <div class="proj-info">
+            <div>
+              <div class="proj-num">04 / 04</div>
+              <div class="proj-role">CAD, CAM &amp; Manufacturing · EWB Nepal</div>
+              <h3>CNC Machining &amp; Community Design</h3>
+              <p class="proj-desc">Two fabrication projects: (1) CNC machining of a precision top plate for a rocket engine test stand — G-code development, CAM toolpath generation, acrylic machining. (2) Engineers Without Borders CAD for a school extension and chicken farm in Nepal.</p>
+              <div class="tags">
+                <span class="tag a">G-Code / CAM</span><span class="tag a">CNC Machining</span>
+                <span class="tag">Engineers Without Borders</span><span class="tag">Architectural CAD</span>
+              </div>
+            </div>
+            <button class="expand-btn" onclick="toggleDetail('d4',this)">View details <span class="chev">▾</span></button>
+          </div>
+          <div class="proj-vis">
+            <svg viewBox="0 0 500 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="500" height="380" fill="#0d0b18"/>
+              <text x="20" y="30" fill="rgba(192,132,252,.12)" font-family="monospace" font-size="9">%</text>
+              <text x="20" y="45" fill="rgba(192,132,252,.1)" font-family="monospace" font-size="8">O1000 (TOP PLATE)</text>
+              <text x="20" y="58" fill="rgba(192,132,252,.07)" font-family="monospace" font-size="8">N100 (COMPENSATION-WEAR)</text>
+              <text x="20" y="71" fill="rgba(192,132,252,.05)" font-family="monospace" font-size="8">N1 G90 G17 G40 G80 G00</text>
+              <text x="20" y="84" fill="rgba(192,132,252,.04)" font-family="monospace" font-size="8">N118 M06 T8 S2500 M03</text>
+              <rect x="150" y="130" width="200" height="175" rx="3" fill="rgba(168,85,247,.04)" stroke="rgba(192,132,252,.45)" stroke-width="1.5"/>
+              <circle cx="250" cy="217" r="42" fill="rgba(168,85,247,.06)" stroke="rgba(192,132,252,.5)" stroke-width="1.5" stroke-dasharray="5 2"/>
+              <circle cx="172" cy="152" r="9" fill="rgba(168,85,247,.08)" stroke="rgba(192,132,252,.4)" stroke-width="1"/>
+              <circle cx="328" cy="152" r="9" fill="rgba(168,85,247,.08)" stroke="rgba(192,132,252,.4)" stroke-width="1"/>
+              <circle cx="172" cy="283" r="9" fill="rgba(168,85,247,.08)" stroke="rgba(192,132,252,.4)" stroke-width="1"/>
+              <circle cx="328" cy="283" r="9" fill="rgba(168,85,247,.08)" stroke="rgba(192,132,252,.4)" stroke-width="1"/>
+              <line x1="150" y1="330" x2="350" y2="330" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <line x1="150" y1="325" x2="150" y2="335" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <line x1="350" y1="325" x2="350" y2="335" stroke="rgba(192,132,252,.2)" stroke-width=".8"/>
+              <text x="245" y="348" fill="rgba(192,132,252,.35)" font-family="monospace" font-size="8" text-anchor="middle">12.13 in</text>
+              <line x1="250" y1="70" x2="250" y2="128" stroke="rgba(192,132,252,.45)" stroke-width="1.5"/>
+              <rect x="243" y="62" width="14" height="12" rx="1" fill="rgba(168,85,247,.12)" stroke="rgba(192,132,252,.45)" stroke-width="1"/>
+              <text x="268" y="100" fill="rgba(192,132,252,.35)" font-family="monospace" font-size="8">1/2" ENDMILL</text>
+              <text x="155" y="370" fill="rgba(192,132,252,.25)" font-family="monospace" font-size="7">ROCKET ENGINE TEST STAND · TOP PLATE</text>
+            </svg>
+          </div>
+        </div>
+        <div class="proj-details" id="d4">
+          <div class="det-grid">
+            <div class="det-sec"><h4>CNC Machining — Rocket Test Stand</h4><ul>
+              <li>Full CAD model with mounting holes and central pocket</li>
+              <li>G-code written from scratch using CAM toolpath definitions</li>
+              <li>Toolpaths for drilling, pocketing, and material removal</li>
+              <li>Simulation verified before fabrication</li>
+              <li>Acrylic machining — careful tool engagement for clean finish</li>
+            </ul></div>
+            <div class="det-sec"><h4>EWB Nepal — School Extension</h4><ul>
+              <li>CAD for chicken farm and adjacent school extension in Nepal</li>
+              <li>Designed bathrooms, stairs, garden beds with child safety focus</li>
+              <li>Removable wall between classrooms — maximized space flexibility</li>
+              <li>Worked under real construction timeline constraints</li>
+              <li>Team-based CAD environment with real-world impact</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="photos">
+  <div class="inner">
+    <div class="sec-hdr">
+      <div><div class="sec-tag">Gallery</div><h2>Project Photos</h2></div>
+      <div class="sec-count" id="photo-count">0 photos</div>
+    </div>
+    <p class="photos-intro">Upload your own project photos here — CAD screenshots, lab work, fabricated parts, CFD results, or anything from your portfolio. Photos are saved in your browser so they persist when you reopen the file.</p>
+
+    <div class="cat-row">
+      <button class="cat-btn active" onclick="setCat('all',this)">All</button>
+      <button class="cat-btn" onclick="setCat('Rocket',this)">Rocket</button>
+      <button class="cat-btn" onclick="setCat('UAV',this)">UAV</button>
+      <button class="cat-btn" onclick="setCat('CFD',this)">CFD</button>
+      <button class="cat-btn" onclick="setCat('CNC',this)">CNC</button>
+      <button class="cat-btn" onclick="setCat('EWB',this)">EWB Nepal</button>
+      <button class="cat-btn" onclick="setCat('Other',this)">Other</button>
+    </div>
+
+    <div class="upload-zone" id="drop-zone"
+      onclick="document.getElementById('file-input').click()"
+      ondrop="handleDrop(event)"
+      ondragover="handleDragOver(event)"
+      ondragleave="handleDragLeave(event)">
+      <input type="file" id="file-input" multiple accept="image/*" onchange="handleFiles(this.files)">
+      <svg class="up-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="6" y="6" width="36" height="36" rx="4" stroke="rgba(192,132,252,.5)" stroke-width="1.5"/>
+        <path d="M24 32V20M18 26l6-6 6 6" stroke="rgba(192,132,252,.8)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M16 36h16" stroke="rgba(192,132,252,.4)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="up-title">Drop photos here or click to browse</div>
+      <div class="up-sub">PNG · JPG · WEBP · Multiple files supported</div>
+      <button class="up-btn" onclick="event.stopPropagation();document.getElementById('file-input').click()">Choose Files</button>
+    </div>
+
+    <div class="photo-grid" id="photo-grid"></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()">✕ Close</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="sec-hdr">
+      <div><div class="sec-tag">Expertise</div><h2>Technical Skills</h2></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-cell">
+        <div class="skill-glyph">I.</div>
+        <div class="skill-name">CAD / Solid Modeling</div>
+        <div class="skill-detail">SolidWorks — full vehicle assemblies, subsystem integration, airfoil geometry from spline data, manufacturing drawings</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="95%"></div></div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-glyph">II.</div>
+        <div class="skill-name">CFD Simulation</div>
+        <div class="skill-detail">COMSOL Multiphysics — flow fields, lift/drag analysis, mesh refinement studies, wingtip vortex visualization</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="85%"></div></div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-glyph">III.</div>
+        <div class="skill-name">CNC &amp; G-Code</div>
+        <div class="skill-detail">CAM toolpath generation, G-code development from scratch, drilling and pocketing, acrylic and metal machining</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="80%"></div></div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-glyph">IV.</div>
+        <div class="skill-name">Structural Analysis</div>
+        <div class="skill-detail">Load path design, motor mounts, fin interfaces, axial and bending load cases, vehicle structural integrity</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="88%"></div></div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-glyph">V.</div>
+        <div class="skill-name">Composites &amp; Manufacturing</div>
+        <div class="skill-detail">Fiberglass layup, composite material selection, tooling and bonding, budget-constrained design decisions</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="82%"></div></div>
+      </div>
+      <div class="skill-cell">
+        <div class="skill-glyph">VI.</div>
+        <div class="skill-name">Aerodynamics</div>
+        <div class="skill-detail">NACA airfoil selection, wing planform optimization, stability analysis, induced drag, stall characteristics</div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:0%" data-w="87%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="inner">
+    <div class="sec-hdr">
+      <div><div class="sec-tag">Background</div><h2>About Jasmine</h2></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm an Aerospace Engineering student at UCLA with a passion for turning complex engineering requirements into manufacturable, high-performance designs. My work spans the full design lifecycle — from initial concept and CAD modeling to structural analysis, simulation, and fabrication.</p>
+        <p>I've served as CAD lead and systems lead on projects ranging from multi-stage rockets and medical delivery UAVs to CNC-machined test hardware. I bring a practical mindset to every project: designing not just for ideal performance, but for real-world constraints like budget, manufacturing feasibility, and timeline.</p>
+        <p>Beyond technical work, I've contributed to humanitarian design through Engineers Without Borders, building infrastructure for communities in Nepal — a reminder of why good engineering matters.</p>
+        <div class="about-btns">
+          <a href="mailto:jasminevuong04@gmail.com" class="btn-p">Email Me</a>
+          <a href="tel:7149023922" class="btn-g">(714) 902-3922</a>
+        </div>
+      </div>
+      <div class="hi-list">
+        <div class="hi-item">
+          <div class="hi-num">01</div>
+          <div class="hi-content"><h4>Systems Thinking</h4><p>Led integration of propulsion, avionics, structures, and recovery systems into a cohesive rocket vehicle — ensuring every subsystem fits physically and functionally.</p></div>
+        </div>
+        <div class="hi-item">
+          <div class="hi-num">02</div>
+          <div class="hi-content"><h4>Constraint-Driven Design</h4><p>Consistently designed under budget, weight, and manufacturing constraints — selecting materials and optimizing layups based on real tradeoffs, not ideal performance.</p></div>
+        </div>
+        <div class="hi-item">
+          <div class="hi-num">03</div>
+          <div class="hi-content"><h4>Simulation &amp; Verification</h4><p>Applied CFD in COMSOL and CAM simulation to verify designs before fabrication — reducing risk and improving accuracy in aerodynamic and machining outcomes.</p></div>
+        </div>
+        <div class="hi-item">
+          <div class="hi-num">04</div>
+          <div class="hi-content"><h4>Team Collaboration</h4><p>Worked across team-based CAD environments at UCLA and internationally with EWB Nepal — coordinating interfaces under real construction timelines.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="inner">
+    <div class="contact-inner">
+      <div class="sec-tag" style="justify-content:center">Let's Connect</div>
+      <div class="contact-title">Ready to<br><em>Build Something?</em></div>
+      <p class="contact-sub">Aerospace engineering student open to internships, research positions, and design collaborations.</p>
+      <div class="contact-links">
+        <a href="mailto:jasminevuong04@gmail.com" class="c-link primary">✉ jasminevuong04@gmail.com</a>
+        <a href="tel:7149023922" class="c-link">☏ (714) 902-3922</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Jasmine Vuong · Aerospace Engineering, UCLA</p>
+  <p>jasminevuong04@gmail.com · (714) 902-3922</p>
+</footer>
+
+<script>
+// Project expand/collapse
+function toggleDetail(id, btn) {
+  var el = document.getElementById(id);
+  el.classList.toggle('open');
+  btn.classList.toggle('open');
+  btn.innerHTML = el.classList.contains('open')
+    ? 'Hide details <span class="chev open">▾</span>'
+    : 'View details <span class="chev">▾</span>';
+}
+
+// Skill bar animation on scroll
+var fills = document.querySelectorAll('.skill-bar-fill');
+var widths = [];
+fills.forEach(function(f){ widths.push(f.getAttribute('data-w')); f.style.width = '0%'; });
+var skillObs = new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting){
+    fills.forEach(function(f,i){ f.style.width = widths[i]; });
+    skillObs.disconnect();
+  }
+},{threshold:0.3});
+var skillSec = document.getElementById('skills');
+if(skillSec) skillObs.observe(skillSec);
+
+// Photo gallery
+var photos = [];
+try { photos = JSON.parse(localStorage.getItem('jv_photos') || '[]'); } catch(e){ photos = []; }
+var currentCat = 'all';
+
+function savePhotos(){ try{ localStorage.setItem('jv_photos', JSON.stringify(photos)); }catch(e){} }
+
+function updateCount(){
+  var n = photos.length;
+  document.getElementById('photo-count').textContent = n + ' photo' + (n !== 1 ? 's' : '');
+}
+
+function renderGallery(){
+  var grid = document.getElementById('photo-grid');
+  var visible = currentCat === 'all' ? photos : photos.filter(function(p){ return p.cat === currentCat; });
+  updateCount();
+  grid.innerHTML = '';
+  if(visible.length === 0){
+    grid.innerHTML = '<div class="empty"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(192,132,252,.25)" stroke-width="1.5"><rect x="6" y="12" width="36" height="28" rx="3"/><circle cx="16" cy="22" r="4"/><path d="M6 32l10-8 8 6 6-4 12 10"/></svg><p>' + (currentCat === 'all' ? 'No photos yet — upload some above' : 'No photos in this category') + '</p></div>';
+    return;
+  }
+  visible.forEach(function(photo){
+    var realIdx = photos.indexOf(photo);
+    var item = document.createElement('div');
+    item.className = 'photo-item';
+    var cats = ['Rocket','UAV','CFD','CNC','EWB','Other'];
+    var opts = cats.map(function(c){ return '<option value="'+c+'"'+(photo.cat===c?' selected':'')+'>'+c+'</option>'; }).join('');
+    item.innerHTML =
+      '<img src="'+photo.src+'" alt="'+(photo.caption||photo.name)+'" onclick="openLB('+realIdx+')">' +
+      '<div class="photo-ov" onclick="event.stopPropagation()">' +
+        '<input class="photo-cap" type="text" placeholder="Add a caption…" value="'+(photo.caption||'')+'" onchange="updateCap('+realIdx+',this.value)" onclick="event.stopPropagation()">' +
+        '<select class="photo-sel" onchange="updateCat('+realIdx+',this.value)" onclick="event.stopPropagation()">'+opts+'</select>' +
+        '<button class="photo-del" onclick="delPhoto('+realIdx+')">✕ Remove</button>' +
+      '</div>' +
+      (photo.caption ? '<div class="photo-lbl">'+photo.caption+'</div>' : '');
+    grid.appendChild(item);
+  });
+}
+
+function handleFiles(files){
+  Array.from(files).forEach(function(file){
+    if(!file.type.startsWith('image/')) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      photos.push({src:e.target.result, name:file.name, caption:'', cat:'Other'});
+      savePhotos(); renderGallery();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  handleFiles(e.dataTransfer.files);
+}
+function handleDragOver(e){ e.preventDefault(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function handleDragLeave(){ document.getElementById('drop-zone').classList.remove('drag-over'); }
+
+function delPhoto(i){ photos.splice(i,1); savePhotos(); renderGallery(); }
+function updateCap(i,v){ photos[i].caption=v; savePhotos(); renderGallery(); }
+function updateCat(i,v){ photos[i].cat=v; savePhotos(); renderGallery(); }
+function setCat(cat,btn){
+  currentCat=cat;
+  document.querySelectorAll('.cat-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderGallery();
+}
+
+function openLB(i){
+  document.getElementById('lb-img').src = photos[i].src;
+  document.getElementById('lb-cap').textContent = photos[i].caption || photos[i].name;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLB(){ document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLB(); });
+
+renderGallery();
+</script>
+</body>
+</html>
